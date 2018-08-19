@@ -1,4 +1,6 @@
-// import { createStore } from 'redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './immutableObject';
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -36,13 +38,36 @@ const createStore = (reducer) => {
 
 const store = createStore(counter);
 
+const Counter = ({
+   value,
+   onIncrement,
+   onDecrement
+  }) => (
+  <div>
+      <h1>{value}</h1>
+      <button onClick={onIncrement}>+</button>
+      <button onClick={onDecrement}>-</button>
+  </div>
+);
+
 const render = () => {
-   document.body.innerText = store.getState();
+  ReactDOM.render(
+    <Counter 
+      value = {store.getState()}
+      onIncrement = {() => 
+        store.dispatch({
+          type: 'INCREMENT'
+        })
+      }
+      onDecrement = {() => 
+        store.dispatch({
+          type: 'DECREMENT'
+        })
+      }
+    />,
+    document.getElementById('app-root')
+  )
 }
 
 store.subscribe(render);
 render();
-
-document.addEventListener('click', () => {
-   store.dispatch({type: 'INCREMENT'});
-})
