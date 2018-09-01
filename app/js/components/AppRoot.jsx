@@ -1,19 +1,33 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+import { throttle } from 'lodash/throttle';
 
 import AddTodo from './AddTodo.jsx';
-import TodoList from './TodoList.jsx';
-import Footer from './Footer.jsx';
-import store from '../store';
-
+import VisibleTodoList from './VisibleTodoList.jsx';
+import FilterLink from './FilterLink.jsx';
+import todoApp from '../store/reducers.js';
+import { loadState, saveState } from '../localStorage.js';
 
 const TodoApp = () => (
   <div>
     <AddTodo />
-    <TodoList />
-    <Footer />
+    <VisibleTodoList />
+    <FilterLink />
   </div>
 );
+
+const persistedState = loadState();
+
+const store = createStore(
+  todoApp, 
+  persistedState
+);
+
+store.subscribe(throttle(() => {
+  saveState({
+    todos: store.getState().todos});
+  }, 1000));
 
 export default (
   <Provider store={store}>

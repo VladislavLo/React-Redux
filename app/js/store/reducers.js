@@ -55,4 +55,4 @@ const todoApp = combineReducers({
   visibilityFilter
 });
 
-export default createStore(todoApp)
+export default todoApp;
