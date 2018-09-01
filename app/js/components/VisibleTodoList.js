@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleTodo } from '../actions/actions.js';
-import { TodoList } from './TodoList.jsx';
+import { toggleTodo } from '../actions';
+import { TodoList } from './TodoList';
 
 const getVisibleTodos = (
   todos,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Todo } from './Todo.jsx'
+import { Todo } from './Todo'
 export const TodoList = ({
   todos,
   onTodoClick

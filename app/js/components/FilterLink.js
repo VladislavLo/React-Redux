@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Link } from './Link.jsx';
-import { setVisibilityFilter } from '../actions/actions.js';
+import { Link } from './Link';
+import { setVisibilityFilter } from '../actions';
 
 
 const mapStateProps = (state, ownProps) => ({
@@ -20,20 +20,4 @@ const FilterLink = connect(
   mapDispatchProps
 )(Link);
 
-export default () => (
-  <p>
-    Show:
-    {' '}
-    <FilterLink filter='SHOW_ALL'>
-      All
-    </FilterLink>
-    {', '}
-    <FilterLink filter='SHOW_ACTIVE'>
-      Active
-    </FilterLink>
-    {', '}
-    <FilterLink filter='SHOW_COMPLETED'>
-      Completed
-    </FilterLink>
-  </p>
-);
+export default FilterLink;
