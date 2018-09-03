@@ -1,39 +1,38 @@
 {
-  "name": "Todo",
+  "name": "reactapp",
   "version": "0.0.0",
   "description": "Todo app using React, Redux and Webpack. Based on the example from Dan Abramov's excellent tutorial (https://egghead.io/series/getting-started-with-redux)",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "copyfiles": "^2.0.0",
+    "cpx": "^1.5.0",
+    "express-history-api-fallback": "^2.2.1",
+    "fs": "0.0.1-security",
+    "nodemon": "^1.14.12",
+    "npm-run-all": "^4.1.2",
+    "path": "^0.12.7",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-merge": "^4.1.1",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "express": "^4.16.2"
+  },
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --hot --inline"
   },
-  "keywords": [
-    "todo"
-  ],
   "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
-    "babel-plugin-react-transform": "^2.0.0",
-    "babel-plugin-syntax-class-properties": "^6.3.13",
-    "babel-plugin-syntax-decorators": "^6.3.13",
-    "babel-plugin-syntax-object-rest-spread": "^6.3.13",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
-    "file-loader": "^0.8.5",
-    "react-hot-loader": "^1.3.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
-  },
-  "dependencies": {
-    "react": "^0.14.5",
-    "react-dom": "^0.14.5",
-    "react-redux": "^4.0.6",
-    "redux": "^3.0.5",
-    "deep-freeze":"0.0.1",
-    "expect": "^23.5.0",
-    "node-uuid-v4": "1.0.0",
-    "lodash": "4.17.10"
-  }
+  "license": "MIT"
 }

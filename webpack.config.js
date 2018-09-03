@@ -1,37 +1,35 @@
-module.exports = {
-  entry: {
-    javascript: "./app/js/index.js",
-    html: "./app/index.html"
-  },
-  output: {
-    path: __dirname + "/dist",
-    filename: "./js/app.js"
-  },
-  debug: true,
-  devtool: 'inline-source-map',
-  module: {
-    loaders: [
-      {
-        test: /\.html$/,
-        loader: "file?name=[name].[ext]"
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ["react-hot", 'babel?'+JSON.stringify(
-          {
-            presets: ['react', 'es2015'],
-            "plugins": [
-              "syntax-class-properties",
-              "syntax-decorators",
-              "syntax-object-rest-spread",
+const path = require('path');
+const APP_DIR = path.resolve(__dirname, 'app');
+const PUBLIC_DIR = path.resolve(__dirname, 'public');
 
-              "transform-class-properties",
-              "transform-object-rest-spread"
-            ]
-          }
-        )]
-      }
-    ]
-  }
+module.exports = {
+
+    devtool: 'source-map',
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                options: {
+                    presets: [
+                        'react', 'stage-2',
+                        ['env', { targets: { browsers: ['last 2 versions'] } }]
+                    ]
+                },
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+    entry: APP_DIR + '/js/index.js',
+
+    devServer: {
+        contentBase: PUBLIC_DIR,
+        port: 9000,
+        open: true
+    },
+
+    output: {
+        path: PUBLIC_DIR,
+        filename: 'clientbundle.js'
+    }
 };
