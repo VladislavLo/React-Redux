@@ -13,13 +13,14 @@ module.exports = {
                     presets: [
                         'react', 'stage-2',
                         ['env', { targets: { browsers: ['last 2 versions'] } }]
-                    ]
+                    ]                    
                 },
                 loader: 'babel-loader',
                 exclude: /node_modules/
             }
         ]
     },
+
     entry: APP_DIR + '/js/index.js',
 
     devServer: {
