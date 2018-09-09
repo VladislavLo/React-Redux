@@ -1,21 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
-import { toggleTodo } from '../actions';
+import PropTypes from 'prop-types';
+import * as actions from '../actions';
 import { TodoList } from './TodoList';
-import { getVisibleTodos } from '../reducers';
+import { getVisibleTodos, getErrorMessage, getIsFetching } from '../reducers';
+import FetchError from './FetchError';
 
-const mapStateToProps = (state, { match }) => ({  
-    todos: getVisibleTodos(
-      state,
-      match.params.filter || 'all'
-    )
-});
+class VisibleTodoList extends Component {
+  render() {
+    const { toggleTodo, todos, errorMessage, isFetching } = this.props;
+    if (isFetching && !todos.length) {
+      return <p>Loading...</p>;
+    }
 
-const VisibleTodoList = withRouter(connect(
+    if (errorMessage && !todos.length) {
+       return (
+       <FetchError
+          message={errorMessage}
+          onRetry={() => this.fetchData()}
+       />);
+    }
+    return (
+      <TodoList
+       todos = {todos}
+       onTodoClick={toggleTodo} 
+    />
+    );
+  }
+  componentDidMount() {
+    this.fetchData();
+  } 
+  componentDidUpdate(prevProps) {
+   if (this.props.filter !== prevProps.filter) {
+     this.fetchData();
+   }
+ }
+
+  fetchData() {
+    const { filter, fetchTodos } = this.props;
+    fetchTodos(filter);
+  }
+}
+
+VisibleTodoList.propTypes = {
+    filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
+    todos: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    fetchTodos: PropTypes.func.isRequired,
+    toggleTodo: PropTypes.func.isRequired   
+};
+
+const mapStateToProps = (state, { match }) => {
+  const filter = match.params.filter || 'all';
+  return {
+    todos: getVisibleTodos(state, filter),
+    errorMessage: getErrorMessage(state, filter),
+    isFetching: getIsFetching(state, filter),
+    filter,
+  };
+};
+
+VisibleTodoList = withRouter(connect(
   mapStateToProps,
-  { onTodoClick: toggleTodo }
-)(TodoList));
+  actions
+)(VisibleTodoList));
 
 export default VisibleTodoList;
